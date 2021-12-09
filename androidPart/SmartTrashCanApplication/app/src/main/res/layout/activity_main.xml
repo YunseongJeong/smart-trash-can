@@ -25,31 +25,35 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="쓰레기통 빈자리"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_marginTop="50dp"
-                android:textColor="#FFD180"
-                android:layout_marginBottom="10dp"
-                android:layout_gravity="center"/>
-
-            <com.dinuscxj.progressbar.CircleProgressBar
-                android:id="@+id/circleFill"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_gravity="center"
-                app:progress_background_color="#FF9E80"
-                app:progress_stroke_cap="round"
-                app:progress_stroke_width="15dp"
-                android:layout_marginBottom="50dp"
-                app:progress_style="solid_line"
-                app:progress_end_color="#CCFF90"
-                app:progress_start_color="#CCFF90"
-                app:progress_text_color="#FFE57F"
-                app:progress_text_size="50dp" />
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="쓰레기통 빈자리"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="100dp"
+                    android:textColor="#FFD180"
+                    android:layout_marginBottom="10dp"
+                    android:layout_gravity="center"/>
+                <com.dinuscxj.progressbar.CircleProgressBar
+                    android:id="@+id/circleFill"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_gravity="center"
+                    app:progress_background_color="#FF9E80"
+                    app:progress_stroke_cap="round"
+                    app:progress_stroke_width="15dp"
+                    android:layout_marginBottom="100dp"
+                    app:progress_style="solid_line"
+                    app:progress_end_color="#CCFF90"
+                    app:progress_start_color="#CCFF90"
+                    app:progress_text_color="#FFE57F"
+                    app:progress_text_size="50dp" />
+            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>

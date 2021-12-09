@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "44879144341",
+    "project_id": "smart-trash-can-application",
+    "storage_bucket": "smart-trash-can-application.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:44879144341:android:ad2f4ed1537e91ba99429c",
+        "android_client_info": {
+          "package_name": "com.example.smarttrashcanapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "44879144341-0id9d3smv10gr6vdqo2k5smf0ndt148n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCKaa6SdUZeymdEc3tc_ZLgcLMGgLeCUlQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "44879144341-0id9d3smv10gr6vdqo2k5smf0ndt148n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
