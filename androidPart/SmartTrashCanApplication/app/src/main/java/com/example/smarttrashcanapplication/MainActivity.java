@@ -13,6 +13,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
     private static final String DEFAULT_PATTERN="%d%%";
@@ -21,10 +23,14 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
 
+    private ArrayList<DataOfFilled> arrayListOfFill = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
 
         circleProgressBar = findViewById(R.id.circleFill);
         circleProgressBar.setProgress(100);
@@ -34,7 +40,12 @@ public class MainActivity extends AppCompatActivity {
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
+                arrayListOfFill = null;
+                for(DataSnapshot snapshot1 : snapshot.getChildren()) {
+                    DataOfFilled dataOfFilled = snapshot1.getValue(DataOfFilled.class);
+                    arrayListOfFill.add(dataOfFilled);
+                }
+                circleProgressBar.setProgress((int)arrayListOfFill.get(arrayListOfFill.toArray().length-1).getAmountOfFill());
             }
 
             @Override
