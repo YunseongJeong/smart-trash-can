@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         circleProgressBar.setProgress(100);
 
         database = FirebaseDatabase.getInstance();
-        databaseReference = database.getReference();
+        databaseReference = database.getReference("Fill");
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
