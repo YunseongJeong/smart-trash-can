@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ArrayList<Data> arrayList;
 
+    private boolean isStarted = true;
     @SuppressLint("LongLogTag")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +60,23 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Log.e("MainActivity", error.toException().toString());
+            }
+        });
+
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (isStarted){
+                    isStarted = false;
+                } else {
+                    recreate();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
     }
