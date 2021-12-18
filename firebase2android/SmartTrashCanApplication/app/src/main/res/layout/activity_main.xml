@@ -54,7 +54,6 @@
                     app:progress_text_color="#FFE57F"
                     app:progress_text_size="50dp" />
             </LinearLayout>
-
         </LinearLayout>
     </ScrollView>
     <com.google.android.material.bottomnavigation.BottomNavigationView

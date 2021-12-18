@@ -21,9 +21,9 @@ def Decode(A):
     A = str(A)
     fillData = A[1:4]
     airData = A[5:8]
-
-    dir = db.reference('Data/' +time.strftime('%Y%m%d%H%M', time.localtime(time.time())))
-    dir.update({'time' : time.strftime('%Y%m%d%H%M', time.localtime(time.time()))})
+    timeData = time.strftime('%Y%m%d%H%M%S', time.localtime(time.time()))
+    dir = db.reference('Data/' + timeData)
+    dir.update({'time' : timeData})
     dir.update({'fillData' : fillData})
     dir.update({'airData' : airData})
                 
