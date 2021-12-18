@@ -12,11 +12,19 @@ void uploadInfo(int fillData, int airData) {
   Serial.println();
 }
 
+int lastFillData = 0, lastAirData = 0;
+
+int curAirData = 70, curFillData = 20;
+
 void setup() {
   Serial.begin(9600);
 }
 
 void loop() {
- uploadInfo(70, 40);
+ if(lastFillData != curFillData || lastAirData != curAirData) {
+   lastFillData = curFillData;
+   lastAirData = curAirData;
+   uploadInfo(curFillData, curAirData);
+ }
  delay(1000);
 }
