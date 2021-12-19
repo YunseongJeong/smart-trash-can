@@ -16,6 +16,21 @@ int motionPin = 8;
 int trigPin = 3;
 int echoPin = 2;
 
+int lumiPin = 54;
+int ledPin = 5;
+
+int read_lumi(int lumiPin){
+    /*
+     * @ brief: Get int value(0~255) of output of light sensor
+     * @ parameter: pin number of light sensor
+     * @ return: return int value
+     */
+    int reading = analogRead(lumiPin);
+    Serial.println(reading);
+    int value = map(reading, 0, 1024, 0, 255); 
+    return value;
+}
+
 float get_duration(int trigPin, int echoPin){
     /*
      *@ brief : Get distance from a something by using ultrasonic sensor
@@ -71,10 +86,17 @@ void setup() {
 
     // time checker
     time_previous=millis();
+
+    // led
+    pinMode(ledPin, OUTPUT);
+    digitalWrite(ledPin, LOW);
 }
 
 void loop() {
     // put your main code here, to run repeatedly:
+    int led_value = read_lumi(lumiPin);
+    Serial.println(led_value);
+    analogWrite(ledPin, led_value);
     time_current = millis();
     int motion = digitalRead(motionPin);
     if(motion == HIGH){
@@ -102,5 +124,4 @@ void loop() {
     }
 
     delay(1000);
-    
 }
