@@ -13,8 +13,10 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dinuscxj.progressbar.CircleProgressBar;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarMenuView;
@@ -25,6 +27,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
 
@@ -53,6 +56,24 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w(TAG, "Fetching FCM registration token failed", task.getException());
+                            return;
+                        }
+
+                        // Get new FCM registration token
+                        String token = task.getResult();
+
+                        // Log and toast
+                        Log.d(TAG, "token : "+token);
+                        //Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                    }
+                });
 
         scrollView  = findViewById(R.id.main_sv);
         navigationView = findViewById(R.id.bottom_navi);

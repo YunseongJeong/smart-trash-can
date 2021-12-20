@@ -10,8 +10,8 @@ import time
 
 
 #for Noticitation
-APIKEY = "Your Server Key"
-TOKEN = "Your Token"
+APIKEY = "AAAACnMBZZU:APA91bFzQm-_t0iKH6btv6y3vtxdJqUMfzreRLePbgiY_De9gOB94FVV7vTFkytxpe4VkHnQBMEXZC0f5LKwHnjVu7TYOJ3lyi1QAAJvBlHA1T_0scaFRItIpX4irHbAidjZMIMaMu1d"
+TOKEN = "djq_H7BjRxeOswWm4ZGfoY:APA91bHhstvMPW3C_aWFCtU1-wpGKahOtRm8meARM-MwL9k2WfAVaVOr8N3E8_CSwtooOIg-R5VNFgDSiztuIGZrq9eKwgSOrIKwj8fRlR7uCSPUOMuroWjwPBYrR53c6-EFE9HO5NJW"
 push_service = FCMNotification(APIKEY)
 
 def sendMessage(body, title):
@@ -19,11 +19,11 @@ def sendMessage(body, title):
         "body":body,
         "title":title
         }
-    result = push_service.single_device_data_message(registration_id=TOKEN, data_message=datamessage)
+    result = push_service.single_device_data_message(registration_id=TOKEN, data_message=data_message)
     print(result)
 
 #for Database
-cred = credentials.Certificate("smart-trash-can-application-firebase-adminsdk-rz79l-53889be09d.json")
+cred = credentials.Certificate("smart-trash-can-application-firebase-adminsdk-rz79l-7428c90d74.json")
 firebase_admin.initialize_app(cred,{
         'databaseURL' : 'https://smart-trash-can-application-default-rtdb.firebaseio.com/'
     })
