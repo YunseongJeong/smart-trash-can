@@ -7,13 +7,13 @@
     tools:context=".MainActivity"
     android:id="@+id/activity_main"
     android:orientation="vertical"
-    android:background="#FFFF8D">
+    android:background="#FFFFFF">
 
     <Toolbar
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:title="Smart Trash Can App By 운죽정"
-        android:titleTextColor="#FFD180"
+        android:titleTextColor="#FFFFFF"
         android:background="#FF9E80"/>
 
 
@@ -21,6 +21,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:id="@+id/main_sv"
         android:layout_weight="1">
         <LinearLayout
             android:layout_width="match_parent"
@@ -37,7 +38,7 @@
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:layout_marginTop="100dp"
-                    android:textColor="#FFD180"
+                    android:textColor="#393939"
                     android:layout_marginBottom="10dp"
                     android:layout_gravity="center"/>
                 <com.dinuscxj.progressbar.CircleProgressBar
@@ -52,9 +53,40 @@
                     app:progress_style="solid_line"
                     app:progress_end_color="#CCFF90"
                     app:progress_start_color="#CCFF90"
-                    app:progress_text_color="#FFE57F"
+                    app:progress_text_color="#FFD180"
                     app:progress_text_size="50dp" />
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_margin="20dp"
+                android:background="#FF8A80"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="공기 질"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    android:layout_marginTop="100dp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#CCFF90"
+                    android:id="@+id/tv_air"
+                    android:text="[좋음]"
+                    android:textSize="40sp"
+                    android:textStyle="bold"
+                    android:layout_margin="50dp"
+                    android:gravity="center"/>
+
+            </LinearLayout>
+
+
+
         </LinearLayout>
     </ScrollView>
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -63,8 +95,8 @@
         android:id="@+id/bottom_navi"
         app:menu="@menu/bottom_menu"
         android:background="#FF8A80"
-        app:itemIconTint="#FF9E80"
-        app:itemTextColor="#FFD180"/>
+        app:itemIconTint="#FFFFFF"
+        app:itemTextColor="#FFFFFF"/>
 
 
 </LinearLayout>

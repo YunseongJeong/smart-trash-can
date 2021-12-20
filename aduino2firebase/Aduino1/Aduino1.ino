@@ -6,7 +6,7 @@ void uploadInfo(int fillData, int airData) {
   Serial.print(buffer);
   
   Serial.print("A");
-  sprintf(buffer, "%03d", airData);
+  sprintf(buffer, "%04d", airData);
   Serial.print(buffer);
 
   Serial.println();
@@ -14,7 +14,7 @@ void uploadInfo(int fillData, int airData) {
 
 int lastFillData = 0, lastAirData = 0;
 
-int curAirData = 70, curFillData = 20;
+int curAirData = 1024, curFillData = 20;
 
 void setup() {
   Serial.begin(9600);

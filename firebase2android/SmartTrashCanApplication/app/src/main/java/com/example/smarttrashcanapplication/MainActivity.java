@@ -9,10 +9,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.ScrollView;
+import android.widget.TextView;
 
 import com.dinuscxj.progressbar.CircleProgressBar;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarMenuView;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,10 +33,19 @@ public class MainActivity extends AppCompatActivity {
     private static final String DEFAULT_PATTERN="%d%%";
     CircleProgressBar circleProgressBar;
 
+    private BottomNavigationView navigationView;
+
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
 
+    private ScrollView scrollView;
+
     private ArrayList<Data> arrayList;
+
+    private int curFillData=0;
+    private int curAirDate=0;
+
+    private TextView tvAir;
 
     private boolean isStarted = true;
     @SuppressLint("LongLogTag")
@@ -38,6 +53,29 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        scrollView  = findViewById(R.id.main_sv);
+        navigationView = findViewById(R.id.bottom_navi);
+        navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.action_trash:
+                        scrollView.scrollTo(0, scrollView.getTop());
+                        break;
+                    case R.id.action_air:
+                        scrollView.scrollTo(0, scrollView.getBottom());
+                        break;
+                    case R.id.action_noti:
+                        break;
+                    case R.id.action_time:
+                        break;
+                }
+                return true;
+            }
+        });
+
+        tvAir = findViewById(R.id.tv_air);
 
         arrayList = new ArrayList<>();
 
@@ -54,7 +92,10 @@ public class MainActivity extends AppCompatActivity {
                     Data data = snapshot1.getValue(Data.class);
                     arrayList.add(data);
                 }
-                circleProgressBar.setProgress(Integer.valueOf(arrayList.get(arrayList.toArray().length-1).getFillData()));
+                curFillData = Integer.valueOf(arrayList.get(arrayList.toArray().length-1).getFillData());
+                curAirDate = Integer.valueOf(arrayList.get(arrayList.toArray().length-1).getAirData());
+                circleProgressBar.setProgress(curFillData);
+                displayAboutAir(curAirDate);
             }
 
             @Override
@@ -79,5 +120,22 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @SuppressLint("ResourceAsColor")
+    private void displayAboutAir(int airData) {
+        if (airData<40){
+            Log.e("tlqkf", "good2");
+            tvAir.setText("[좋음]");
+            //tvAir.setTextColor(android.R.color.holo_blue_light);
+        } else if(airData<70) {
+            Log.e("tlqkf", "good-1");
+            tvAir.setText("[보통]");
+            //tvAir.setTextColor(android.R.color.holo_green_light);
+        } else {
+            Log.e("tlqkf", "good-2");
+            tvAir.setText("[나쁨]");
+            //tvAir.setTextColor(android.R.color.holo_red_dark);
+        }
     }
 }
