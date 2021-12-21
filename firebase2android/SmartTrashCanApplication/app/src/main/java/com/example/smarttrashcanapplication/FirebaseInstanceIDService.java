@@ -34,26 +34,23 @@ public class FirebaseInstanceIDService extends FirebaseMessagingService {
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         if (remoteMessage.getData()==null)
             return;
-        sendNotification(remoteMessage.getData().get("title"), remoteMessage.getData().get("content"));
+        sendNotification(remoteMessage.getData().get("title"), remoteMessage.getData().get("body"));
 
     }
 
     private void sendNotification(String title, String content) {
         if (title==null)
             title="Smart Trach Can";
-
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        //PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
-        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
+        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         final String CHANNEL_ID = "0";
         NotificationManager mManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             final String CHANNEL_NAME = "SmartTrashCan";
             final String CHANNEL_DESCRIPTION = "Notification";
             final int importance = NotificationManager.IMPORTANCE_HIGH;
-
             NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, importance);
             mChannel.setDescription(CHANNEL_DESCRIPTION);
             mChannel.enableLights(true);
@@ -70,13 +67,9 @@ public class FirebaseInstanceIDService extends FirebaseMessagingService {
         builder.setWhen(System.currentTimeMillis());
         builder.setSmallIcon(R.mipmap.ic_launcher);
         builder.setContentText(content);
-        //if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
-            builder.setContentText(title);
-            builder.setSound(defaultSoundUri);
-            builder.setVibrate(new long[]{500, 500});
-        //}
+        builder.setContentTitle(title);
+        builder.setSound(defaultSoundUri);
+        builder.setVibrate(new long[]{500, 500});
         mManager.notify(0, builder.build());
     }
-
-
 }

@@ -1,3 +1,6 @@
+#include <SoftwareSerial.h>
+
+SoftwareSerial mySerial(4,5);
 void uploadInfo(int fillData, int airData) {
   char buffer[4];
     
@@ -14,13 +17,34 @@ void uploadInfo(int fillData, int airData) {
 
 int lastFillData = 0, lastAirData = 0;
 
-int curAirData = 1024, curFillData = 20;
+int curAirData = 10, curFillData = 10;
+
+String sTime = "246060";
 
 void setup() {
   Serial.begin(9600);
+  mySerial.begin(9600);
+   Serial.println('T');
 }
 
 void loop() {
+if (Serial.available()){
+  sTime = Serial.readStringUntil('\n');
+}
+
+ int len = sTime.length()+1;
+ char cTime[len];
+ sTime.toCharArray(cTime, len);
+ mySerial.write(cTime);
+ mySerial.write('\n');
+ 
+ //for test
+ //if (curAirData<=1024)
+ // curAirData += 10;
+ //if (curFillData <= 100)
+ // curFillData += 10;
+  
+  
  if(lastFillData != curFillData || lastAirData != curAirData) {
    lastFillData = curFillData;
    lastAirData = curAirData;
