@@ -81,6 +81,7 @@ void loop() {
     if(Serial1.available()){
         String data = Serial1.readStringUntil('\n');
         data_int = data.toInt();
+        data_int += 4;
         get_time = true;
     }
    }
@@ -89,7 +90,7 @@ void loop() {
     show_status(16);
   }
   
-  print_clock(data_int);
+  data_int = print_clock(data_int);
   delay(1000);
 }
 
@@ -272,11 +273,11 @@ void draw_bad_face(){
 // end
 
 // functions of clock operation (start)
-void print_clock(uint32_t time6){
+uint32_t print_clock(uint32_t time6){
     /*
      * @ brief: Calculate the time that cosist of six digits hhmmss
      * @ parameter: time6 that hhmmss
-     * @ return: None
+     * @ return: Value of time 6, that calculating 
      */
     uint8_t time_h = time6/10000;
     time6 %=10000;
@@ -286,19 +287,18 @@ void print_clock(uint32_t time6){
 
     if(time_s >= 60){
         time_m += 1;
-        time_s = 0;
+        time_s -= 60;
     }
     if(time_m >= 60){
         time_h += 1;
-        time_m = 0;
+        time_m -= 60;
     }
     if(time_h >= 25){
         time_h = 0;
     }
-
-    data_int = time_h*10000 + time_m*100 + time_s;
-
-    tft.fillRect(140, 70, 80, 60, WHITE);
+    uint32_t time_return;
+    time_return = (uint32_t)time_h*10000 + (uint32_t)time_m*100 + (uint32_t)time_s;
+    tft.fillRect(140, 70, 85, 60, WHITE);
     
     tft.setCursor(140, 70);
     tft.print(time_h);
@@ -306,7 +306,6 @@ void print_clock(uint32_t time6){
     tft.print(time_m);
     tft.setCursor(170, 100);
     tft.print(time_s);
+    return time_return;
 }
 // end
-// 일단 오늘은 여기까지
-// 시계를 구현하고, 냄새 표현 노가다
