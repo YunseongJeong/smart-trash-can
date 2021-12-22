@@ -35,9 +35,10 @@ firebase_admin.initialize_app(cred,{
 #-----------------------------------------------------------------
 
 
+
     
 #for Serial Comunication----------------------------------------
-PORT = 'COM3'
+PORT = 'COM7'
 BaudRate = 9600
 ser= serial.Serial(PORT,BaudRate)
  
@@ -53,24 +54,33 @@ def sendTime() :
 def Decode(A):
     global gAirData
     global gFillData
+    global gLastAirData
+    global gLastFillData
     A = A.decode()
     A = str(A)
     
     if (A[0] == 'F' or A[0] == 'A'):
         fillData = A[1:4]
         airData = A[5:9]
-        gAirData = int(airData)
-        gFillData = int(fillData)
+        try : 
+            gAirData = int(airData)
+            gFillData = int(fillData)
+        except:
+            return 0
         timeData = time.strftime('%Y%m%d%H%M%S', time.localtime(time.time()))
         dir = db.reference('Data/'+'20211219003103') #+ timeData)
         dir.update({'time' : timeData})
         dir.update({'fillData' : fillData})
         dir.update({'airData' : airData})
         if (gFillData>=50 and gAirData >= 70) :
-            sendMessage("The trash can smell Recommended to empty it.", "smartTrashCan")
-        elif (gFillData >= 90) :
-            sendMessage("This trash can is full", "smartTrashCan") 
             
+            sendMessage("The trash can smell Recommended to empty it.", "smartTrashCan")
+        elif (gFillData >= 80) :
+            sendMessage("This trash can is full Recommended to empty it", "smartTrashCan") 
+
+        gLastAirData = gAirData;
+        gLastFillData = gFillData;
+        
         return  fillData + ' ' + airData
     elif (A[0] =='T') :
         sendTime()
@@ -85,6 +95,7 @@ def SerialRead():
     else :
         print("읽기 실패 from _Ardread_")
 #-------------------------------------------------
+
 
 
 #Execution area------------------------------------
