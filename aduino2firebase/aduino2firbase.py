@@ -72,7 +72,7 @@ def Decode(A):
         dir.update({'time' : timeData})
         dir.update({'fillData' : fillData})
         dir.update({'airData' : airData})
-        if (gFillData>=50 and gAirData >= 70) :
+        if (gFillData>=50 and gAirData >= 200) :
             
             sendMessage("The trash can smell Recommended to empty it.", "smartTrashCan")
         elif (gFillData >= 80) :
@@ -93,7 +93,7 @@ def SerialRead():
         print(code)
         return code
     else :
-        print("읽기 실패 from _Ardread_")
+        print("읽기 실패")
 #-------------------------------------------------
 
 

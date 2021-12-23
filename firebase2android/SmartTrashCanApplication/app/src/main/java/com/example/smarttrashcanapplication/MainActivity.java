@@ -145,11 +145,11 @@ public class MainActivity extends AppCompatActivity {
 
     @SuppressLint("ResourceAsColor")
     private void displayAboutAir(int airData) {
-        if (airData<40){
+        if (airData<=100){
             Log.e("tlqkf", "good2");
             tvAir.setText("[좋음]");
             //tvAir.setTextColor(android.R.color.holo_blue_light);
-        } else if(airData<70) {
+        } else if(airData<=200) {
             Log.e("tlqkf", "good-1");
             tvAir.setText("[보통]");
             //tvAir.setTextColor(android.R.color.holo_green_light);
