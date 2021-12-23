@@ -142,7 +142,7 @@ void loop() {
   float distance1 = get_duration(trigPin1, echoPin1);
   Serial.print("tkqjf : ");
   Serial.println(distance1);
-  if ((motion == HIGH && distance1 < 50) && !isopen) { // 움직임이 감지된다면 PIR
+  if ((motion && distance1 < 50) && !isopen) { // 움직임이 감지된다면 PIR
     Serial.println("Motion detected!");
 
     // Open Intrance
