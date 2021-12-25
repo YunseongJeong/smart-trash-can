@@ -8,7 +8,7 @@ int open_angle = 30; // when open
 int shut_angle = 100; // when shut down
 bool isopen = false;
 void openS(){
-  Serial.println("tlqkf0");
+  Serial.println("open");
       for (int i = shut_angle; i >= open_angle; i--) {
       myServo1.write(i-15);
       myServo2.write(i+15);
@@ -17,7 +17,7 @@ void openS(){
     isopen = true;
 }
 void closeS(){
-  Serial.println("tlqkf2");
+  Serial.println("close");
       for (int i = open_angle; i <= shut_angle; i++) {
       myServo1.write(i-15);
       myServo2.write(i+15);
