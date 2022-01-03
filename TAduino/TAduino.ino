@@ -59,6 +59,7 @@ int read_lumi(int lSensor) {
   return value;
 }
 
+// 기능 수행
 int read_pressure(int pSensor){
     /*
      * @ brief: Read pressure sensor
@@ -79,6 +80,15 @@ int pressure_to_per(int pressure){
     return (int)pressure_per;
 }
 
+int pressure_to_per(int pressure){
+    /*
+     * @ brief: translate pressure value to percent
+     * @ parameter: int pressure value 0~1023
+     * @ return: int precent value
+    */
+    float pressure_per = pressure / 1024.0 * 100.0;
+    return (int)pressure_per;
+}
 
 void setup() {
   mySerial.begin(9600);
@@ -193,6 +203,10 @@ void loop() {
   if (!isopen) {
     communication(smellCan(), fillCan());
   }
+
+  int pressure = read_pressure(A1);
+  pressure = pressure_to_per(pressure);
+  Serial.println(pressure);
   
   turnLED();
 
