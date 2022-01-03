@@ -59,6 +59,25 @@ int read_lumi(int lSensor) {
   return value;
 }
 
+int read_pressure(int pSensor){
+    /*
+     * @ brief: Read pressure sensor
+     * @ parameter: pSensor
+     * @ return: 0~1023 int value
+    */
+    int pressure = analogRead(pSensor);
+    return pressure;
+}
+
+int pressure_to_per(int pressure){
+    /*
+     * @ brief: translate pressure value to percent
+     * @ parameter: int pressure value 0~1023
+     * @ return: int precent value
+    */
+    float pressure_per = pressure / 1024.0 * 100.0;
+    return (int)pressure_per;
+}
 
 
 void setup() {
@@ -84,12 +103,17 @@ int fillCan() {
   // ② 쓰레기통이 가득 차면 휴대폰에 알림을 보내는 기능
   int pValue = analogRead(pSensor);
   Serial.print("쓰레기 무게 : ");
+
+  int pressure = read_pressure(A1);
+  pressure = pressure_to_per(pressure);
+  Serial.println(pressure);
   
   int distance = (int)get_duration(trigPin2, echoPin2);
   int full = map(distance,0,25,100,0);
   if (full<=0)
   full = 0;
-    
+  if (pressure <= 20)
+    full = (int)(full * 0.9);
   Serial.println(distance);
   Serial.println(full);
   return full;

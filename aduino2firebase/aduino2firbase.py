@@ -73,7 +73,6 @@ def Decode(A):
         dir.update({'fillData' : fillData})
         dir.update({'airData' : airData})
         if (gFillData>=50 and gAirData >= 70) :
-            
             sendMessage("The trash can smell Recommended to empty it.", "smartTrashCan")
         elif (gFillData >= 80) :
             sendMessage("This trash can is full Recommended to empty it", "smartTrashCan") 
